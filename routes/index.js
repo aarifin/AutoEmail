@@ -50,13 +50,14 @@ router.post('/', function(req, res) {
     });
   } else {
     request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
-      var apiAddress, i, propertyID, propertyList, regex, results;
+      var apiAddress, i, propertyID, propertyList, regex, replyTest, results;
       propertyList = JSON.parse(body);
+      replyTest = /Section 8/.test(text);
       results = [];
       for (i in propertyList) {
         apiAddress = propertyList[i].street;
         regex = new RegExp(apiAddress);
-        if (regex.test(text && /Section 8/.test(text === false))) {
+        if ((regex.test(text)) && (replyTest === false)) {
           propertyID = propertyList[i].id;
           console.log(propertyID);
           results.push(reply.sendEmail(fromName, fromAddress, propertyID));

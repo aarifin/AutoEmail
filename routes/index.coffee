@@ -40,10 +40,12 @@ router.post '/', (req, res) ->
   else  
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
+      replyTest = /Section 8/.test text
+      #console.log replyTest is false
       for i of propertyList
         apiAddress = propertyList[i].street
         regex = new RegExp(apiAddress)
-        if regex.test text and /Section 8/.test text is false
+        if (regex.test text) and (replyTest is false)
           propertyID = propertyList[i].id
           console.log propertyID
           reply.sendEmail fromName, fromAddress, propertyID
