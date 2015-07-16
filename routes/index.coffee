@@ -18,7 +18,7 @@ router.post '/', (req, res) ->
   fromAddress = from.match("<(.*)>")[1]
   fromDomain = from.split('@')[1]
   fromName = from.split(' ')[0]
-  if /onerent/.test fromDomain #CRAIGSLIST 
+  if /craigslist/.test fromDomain #CRAIGSLIST 
     console.log 'This is from Craigslist'
     $ = cheerio.load email.html
     arrayOfLinks = []
