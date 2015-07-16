@@ -42,6 +42,7 @@ router.post('/', function(req, res) {
       if (err) {
         return console.log(err);
       } else {
+        console.log(html);
         propertyID = html.match('Property ID: (.*)</')[1];
         console.log(propertyID);
         return reply.sendEmail(fromName, fromAddress, propertyID);

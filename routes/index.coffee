@@ -32,6 +32,7 @@ router.post '/', (req, res) ->
       if err
         console.log err
       else
+        console.log html
         propertyID = html.match('Property ID: (.*)</')[1]
         console.log propertyID
         reply.sendEmail fromName, fromAddress, propertyID
