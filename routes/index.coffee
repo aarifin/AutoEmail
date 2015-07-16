@@ -14,11 +14,11 @@ router.post '/', (req, res) ->
   email = req.body
   from = email.from
   text = email.text
-  console.log 
+  console.log from
   fromAddress = from.match("<(.*)>")[1]
   fromDomain = from.split('@')[1]
   fromName = from.split(' ')[0]
-  if /craigslist/.test fromDomain #CRAIGSLIST 
+  if /onerent/.test fromDomain #CRAIGSLIST 
     $ = cheerio.load email.html
     arrayOfLinks = []
     $('a').filter () ->
@@ -27,7 +27,7 @@ router.post '/', (req, res) ->
     craigsLink = arrayOfLinks[arrayOfLinks.length-3]
     #console.log craigslink
     testlink = 'http://sfbay.craigslist.org/eby/apa/5115444072.html'
-    request testlink,(err, res, html) ->
+    request craigsLink,(err, res, html) ->
       if err
         console.log err
       else
