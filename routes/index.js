@@ -22,11 +22,12 @@ router.post('/', function(req, res) {
   email = req.body;
   from = email.from;
   text = email.text;
-  console.log;
+  console.log(from);
   fromAddress = from.match("<(.*)>")[1];
   fromDomain = from.split('@')[1];
   fromName = from.split(' ')[0];
-  if (/craigslist/.test(fromDomain)) {
+  if (/onerent/.test(fromDomain)) {
+    console.log('This is from Craigslist');
     $ = cheerio.load(email.html);
     arrayOfLinks = [];
     $('a').filter(function() {
@@ -36,7 +37,7 @@ router.post('/', function(req, res) {
     });
     craigsLink = arrayOfLinks[arrayOfLinks.length - 3];
     testlink = 'http://sfbay.craigslist.org/eby/apa/5115444072.html';
-    request(testlink, function(err, res, html) {
+    request(craigsLink, function(err, res, html) {
       var propertyID;
       if (err) {
         return console.log(err);
