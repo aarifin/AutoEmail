@@ -56,7 +56,7 @@ router.post('/', function(req, res) {
       for (i in propertyList) {
         apiAddress = propertyList[i].street;
         regex = new RegExp(apiAddress);
-        if (regex.test(text && !/Section 8/.test(text))) {
+        if (regex.test(text && /Section 8/.test(text === false))) {
           propertyID = propertyList[i].id;
           console.log(propertyID);
           results.push(reply.sendEmail(fromName, fromAddress, propertyID));

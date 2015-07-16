@@ -43,7 +43,7 @@ router.post '/', (req, res) ->
       for i of propertyList
         apiAddress = propertyList[i].street
         regex = new RegExp(apiAddress)
-        if regex.test text and !/Section 8/.test text
+        if regex.test text and /Section 8/.test text is false
           propertyID = propertyList[i].id
           console.log propertyID
           reply.sendEmail fromName, fromAddress, propertyID
