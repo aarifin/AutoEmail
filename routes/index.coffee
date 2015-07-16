@@ -37,7 +37,7 @@ router.post '/', (req, res) ->
         console.log propertyID
         reply.sendEmail fromName, fromAddress, propertyID
 
-  else  
+  else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
       replyTest = /Section 8/.test text

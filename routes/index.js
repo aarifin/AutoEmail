@@ -48,7 +48,7 @@ router.post('/', function(req, res) {
         return reply.sendEmail(fromName, fromAddress, propertyID);
       }
     });
-  } else {
+  } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
     request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
       var apiAddress, i, propertyID, propertyList, regex, replyTest, results;
       propertyList = JSON.parse(body);
