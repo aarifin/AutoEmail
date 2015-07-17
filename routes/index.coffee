@@ -7,35 +7,49 @@ router = express.Router()
 # GET home page. 
 router.get "/", (req, res, next) ->
   res.render "index",
-    title: "Super Uber Awesome OneRent Autoreply Email Servie"
+    title: "Super Uber Awesome OneRent Autoreply Email Service"
 
 router.post '/', (req, res) ->
   console.log 'message received'
   email = req.body
+  to = email.to
   from = email.from
   text = email.text
-  console.log from
+  console.log 'From: ' + from
   fromAddress = from.match("<(.*)>")[1]
   fromDomain = from.split('@')[1]
   fromName = from.split(' ')[0]
   if /craigslist/.test fromDomain #CRAIGSLIST 
     console.log 'This is from Craigslist'
-    $ = cheerio.load email.html
-    arrayOfLinks = []
-    $('a').filter () ->
-      data = $(this)
-      arrayOfLinks.push data.text()
-    craigsLink = arrayOfLinks[arrayOfLinks.length-3]
-    #console.log craigslink
-    testlink = 'http://sfbay.craigslist.org/eby/apa/5115444072.html'
-    request craigsLink,(err, res, html) ->
-      if err
-        console.log err
-      else
-        console.log html
-        propertyID = html.match('Property ID: (.*)</')[1]
-        console.log propertyID
-        reply.sendEmail fromName, fromAddress, propertyID
+
+    # $ = cheerio.load email.html
+    # arrayOfLinks = []
+    # $('a').filter () ->
+    #   data = $(this)
+    #   arrayOfLinks.push data.text()
+    # craigsLink = arrayOfLinks[arrayOfLinks.length-3]
+    # testlink = 'http://sfbay.craigslist.org/eby/apa/5115444072.html'
+    # request craigsLink,(err, res, html) ->
+    #   if err
+    #     console.log err
+    #   else
+    #     console.log html
+    #     propertyID = html.match('Property ID: (.*)</')[1]
+    #     console.log propertyID
+    #     reply.sendEmail fromName, fromAddress, propertyID
+
+    craigslistID = to.match("-(.*)@")[1]
+    console.log craigslistID
+    # request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
+    #   propertyList = JSON.parse body
+    #   replyTest = /Section 8/.test text
+    #   for i of propertyList
+    #     apiCLID = propertyList[i].CLID
+    #     if (apiCLID is craigslistID) and (replyTest is false)
+    #       propertyID = propertyList[i].id
+    #       console.log propertyID
+    #       reply.sendEmail fromName, fromAddress, propertyID
+
 
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
