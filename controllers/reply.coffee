@@ -2,7 +2,7 @@ sendgrid = require('sendgrid')('SG.1N9j5FssSQSxo0qNPDdWKQ.Hzn5n5gkoV7_3xa2VH6IVN
 request = require 'request'
 moment = require 'moment-timezone'
 
-exports.sendEmail = (name, from, propertyID) ->
+exports.sendEmail = (name, from, propertyID, managerNumber) ->
   replyTo = from
   propertyURL = 'http://onerent.co/api/property/' + propertyID
   request propertyURL, (err, res, body) ->
@@ -77,6 +77,7 @@ exports.sendEmail = (name, from, propertyID) ->
         ':cats': [catPolicy]
         ':dogs': [dogPolicy]
         ':utilities': [utilities]
+        ':managerNumber': [managerNumber]
 
       sendgrid.send emailReply, (err, json) ->
         if err

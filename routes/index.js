@@ -31,6 +31,33 @@ router.post('/', function(req, res) {
     console.log('This is from Craigslist');
     craigslistID = to.match("-(.*)@")[1];
     console.log(craigslistID);
+    request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
+      var apiCLID, i, managerID, managerNumber, propertyID, propertyList, replyTest, results;
+      propertyList = JSON.parse(body);
+      replyTest = /Section 8/.test(text);
+      results = [];
+      for (i in propertyList) {
+        apiCLID = propertyList[i].craigslistId;
+        if ((apiCLID === craigslistID) && (replyTest === false)) {
+          propertyID = propertyList[i].id;
+          managerID = propertyList[i].managerId;
+          if (managerID === "557779495bf385030060c196") {
+            managerNumber = '(925) 596-1308';
+            console.log('This is Ray');
+          }
+          if (managerID === '558b429c112fa403006fe0f1') {
+            managerNumber = '(669) 251-9324';
+            console.log('This is Matt');
+          }
+          console.log(propertyID);
+          console.log(managerNumber);
+          results.push(reply.sendEmail(fromName, fromAddress, propertyID, managerNumber));
+        } else {
+          results.push(void 0);
+        }
+      }
+      return results;
+    });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
     request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
       var apiAddress, i, propertyID, propertyList, regex, replyTest, results;

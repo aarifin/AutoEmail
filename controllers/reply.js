@@ -6,7 +6,7 @@ request = require('request');
 
 moment = require('moment-timezone');
 
-exports.sendEmail = function(name, from, propertyID) {
+exports.sendEmail = function(name, from, propertyID, managerNumber) {
   var propertyURL, replyTo;
   replyTo = from;
   propertyURL = 'http://onerent.co/api/property/' + propertyID;
@@ -91,7 +91,8 @@ exports.sendEmail = function(name, from, propertyID) {
         ':propertyURL': [browseURL],
         ':cats': [catPolicy],
         ':dogs': [dogPolicy],
-        ':utilities': [utilities]
+        ':utilities': [utilities],
+        ':managerNumber': [managerNumber]
       };
       return sendgrid.send(emailReply, function(err, json) {
         if (err) {

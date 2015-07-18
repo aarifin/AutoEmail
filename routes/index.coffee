@@ -21,34 +21,25 @@ router.post '/', (req, res) ->
   fromName = from.split(' ')[0]
   if /craigslist/.test fromDomain #CRAIGSLIST 
     console.log 'This is from Craigslist'
-
-    # $ = cheerio.load email.html
-    # arrayOfLinks = []
-    # $('a').filter () ->
-    #   data = $(this)
-    #   arrayOfLinks.push data.text()
-    # craigsLink = arrayOfLinks[arrayOfLinks.length-3]
-    # testlink = 'http://sfbay.craigslist.org/eby/apa/5115444072.html'
-    # request craigsLink,(err, res, html) ->
-    #   if err
-    #     console.log err
-    #   else
-    #     console.log html
-    #     propertyID = html.match('Property ID: (.*)</')[1]
-    #     console.log propertyID
-    #     reply.sendEmail fromName, fromAddress, propertyID
-
     craigslistID = to.match("-(.*)@")[1]
     console.log craigslistID
-    # request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
-    #   propertyList = JSON.parse body
-    #   replyTest = /Section 8/.test text
-    #   for i of propertyList
-    #     apiCLID = propertyList[i].CLID
-    #     if (apiCLID is craigslistID) and (replyTest is false)
-    #       propertyID = propertyList[i].id
-    #       console.log propertyID
-    #       reply.sendEmail fromName, fromAddress, propertyID
+    request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
+      propertyList = JSON.parse body
+      replyTest = /Section 8/.test text
+      for i of propertyList
+        apiCLID = propertyList[i].craigslistId
+        if (apiCLID is craigslistID) and (replyTest is false)
+          propertyID = propertyList[i].id
+          managerID = propertyList[i].managerId
+          if managerID is "557779495bf385030060c196"
+            managerNumber = '(925) 596-1308'
+            console.log 'This is Ray'
+          if managerID is '558b429c112fa403006fe0f1'
+            managerNumber = '(669) 251-9324'
+            console.log 'This is Matt'
+          console.log propertyID
+          console.log managerNumber
+          reply.sendEmail fromName, fromAddress, propertyID, managerNumber
 
 
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
@@ -64,7 +55,5 @@ router.post '/', (req, res) ->
           console.log propertyID
           reply.sendEmail fromName, fromAddress, propertyID
   res.end()
-
-
 
 module.exports = router
