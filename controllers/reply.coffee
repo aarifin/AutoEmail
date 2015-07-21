@@ -12,19 +12,19 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       property = JSON.parse body
       bedrooms = property.bedrooms
       bathrooms = property.bathrooms
-      showtimes = property.openHouseDates
-      arrayOfShowtimes = []
-      for i of showtimes
-        ISOString = showtimes[i].date
-        momentTime = moment(ISOString)
-        now = moment.tz(momentTime, "America/Los_Angeles")
-        showingTime = now.format('ddd MMM Do, h:mm a')
-        if (moment(now)).isAfter moment()
-          arrayOfShowtimes.push showingTime
-      if arrayOfShowtimes.length is 0
-        arrayOfShowtimes = 'No showtimes are currently scheduled.'
-      else
-        arrayOfShowtimes = arrayOfShowtimes.join(', ')
+      showtimes = 'http://onerent.co/property/' + propertyID
+      # arrayOfShowtimes = []
+      # for i of showtimes
+      #   ISOString = showtimes[i].date
+      #   momentTime = moment(ISOString)
+      #   now = moment.tz(momentTime, "America/Los_Angeles")
+      #   showingTime = now.format('ddd MMM Do, h:mm a')
+      #   if (moment(now)).isAfter moment()
+      #     arrayOfShowtimes.push showingTime
+      # if arrayOfShowtimes.length is 0
+      #   arrayOfShowtimes = 'No showtimes are currently scheduled.'
+      # else
+      #   arrayOfShowtimes = arrayOfShowtimes.join(', ')
       leaseLength = property.leaseTermMonths
       rent = '$' + property.monthlyRent
       deposit = '$' + property.deposit
@@ -67,7 +67,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
         ':bedrooms': [bedrooms]
         ':bathrooms': [bathrooms]
         ':address': [address]
-        ':showingtimes': [arrayOfShowtimes]
+        ':showingtimes': [showtimes]
         ':leaseLength': [leaseLength]
         ':parkingOptions': [parkingOptions.join(', ')]
         ':rent': [rent]

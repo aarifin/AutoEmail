@@ -11,29 +11,14 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
   replyTo = from;
   propertyURL = 'http://onerent.co/api/property/' + propertyID;
   return request(propertyURL, function(err, res, body) {
-    var ISOString, address, arrayOfShowtimes, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, momentTime, now, parkingOptions, property, rent, showingTime, showtimes, utilities;
+    var address, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, parkingOptions, property, rent, showtimes, utilities;
     if (err) {
       return console.log(err);
     } else {
       property = JSON.parse(body);
       bedrooms = property.bedrooms;
       bathrooms = property.bathrooms;
-      showtimes = property.openHouseDates;
-      arrayOfShowtimes = [];
-      for (i in showtimes) {
-        ISOString = showtimes[i].date;
-        momentTime = moment(ISOString);
-        now = moment.tz(momentTime, "America/Los_Angeles");
-        showingTime = now.format('ddd MMM Do, h:mm a');
-        if ((moment(now)).isAfter(moment())) {
-          arrayOfShowtimes.push(showingTime);
-        }
-      }
-      if (arrayOfShowtimes.length === 0) {
-        arrayOfShowtimes = 'No showtimes are currently scheduled.';
-      } else {
-        arrayOfShowtimes = arrayOfShowtimes.join(', ');
-      }
+      showtimes = 'http://onerent.co/property/' + propertyID;
       leaseLength = property.leaseTermMonths;
       rent = '$' + property.monthlyRent;
       deposit = '$' + property.deposit;
@@ -82,7 +67,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         ':bedrooms': [bedrooms],
         ':bathrooms': [bathrooms],
         ':address': [address],
-        ':showingtimes': [arrayOfShowtimes],
+        ':showingtimes': [showtimes],
         ':leaseLength': [leaseLength],
         ':parkingOptions': [parkingOptions.join(', ')],
         ':rent': [rent],
