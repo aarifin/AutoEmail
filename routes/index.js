@@ -59,8 +59,11 @@ router.post('/', function(req, res) {
       return results;
     });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
+    if (/trulia/.test(fromDomain)) {
+      fromName = '';
+    }
     request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
-      var apiAddress, i, propertyID, propertyList, regex, replyTest, results;
+      var apiAddress, i, managerID, managerNumber, propertyID, propertyList, regex, replyTest, results;
       propertyList = JSON.parse(body);
       replyTest = /Section 8/.test(text);
       results = [];
@@ -69,7 +72,17 @@ router.post('/', function(req, res) {
         regex = new RegExp(apiAddress);
         if ((regex.test(text)) && (replyTest === false)) {
           propertyID = propertyList[i].id;
+          managerID = propertyList[i].managerId;
+          if (managerID === "557779495bf385030060c196") {
+            managerNumber = '(925) 596-1308';
+            console.log('This is Ray');
+          }
+          if (managerID === '558b429c112fa403006fe0f1') {
+            managerNumber = '(669) 251-9324';
+            console.log('This is Matt');
+          }
           console.log(propertyID);
+          console.log(managerNumber);
           results.push(reply.sendEmail(fromName, fromAddress, propertyID));
         } else {
           results.push(void 0);

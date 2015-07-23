@@ -42,6 +42,8 @@ router.post '/', (req, res) ->
           reply.sendEmail fromName, fromAddress, propertyID, managerNumber
 
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
+    if  /trulia/.test fromDomain
+      fromName = ''
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
       replyTest = /Section 8/.test text
@@ -51,7 +53,15 @@ router.post '/', (req, res) ->
         regex = new RegExp(apiAddress)
         if (regex.test text) and (replyTest is false)
           propertyID = propertyList[i].id
+          managerID = propertyList[i].managerId
+          if managerID is "557779495bf385030060c196"
+            managerNumber = '(925) 596-1308'
+            console.log 'This is Ray'
+          if managerID is '558b429c112fa403006fe0f1'
+            managerNumber = '(669) 251-9324'
+            console.log 'This is Matt'
           console.log propertyID
+          console.log managerNumber
           reply.sendEmail fromName, fromAddress, propertyID
   res.end()
 

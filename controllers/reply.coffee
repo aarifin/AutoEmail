@@ -12,7 +12,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       property = JSON.parse body
       bedrooms = property.bedrooms
       bathrooms = property.bathrooms
-      showtimes = 'http://onerent.co/property/' + propertyID
+      showtimes = 'Please schedule a showtime here: http://onerent.co/property/' + propertyID
       # arrayOfShowtimes = []
       # for i of showtimes
       #   ISOString = showtimes[i].date
