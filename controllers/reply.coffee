@@ -28,7 +28,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       leaseLength = property.leaseTermMonths
       rent = '$' + property.monthlyRent
       deposit = '$' + property.deposit
-      #parkingOptions = property.features.parking #array
+      parkingOptions = property.features.parking #array
       if property.requiredIncomeMultiplier
         incomeRequirement = '$' + property.monthlyRent*property.requiredIncomeMultiplier
       else

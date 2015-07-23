@@ -62,7 +62,7 @@ router.post '/', (req, res) ->
             console.log 'This is Matt'
           console.log propertyID
           console.log managerNumber
-          reply.sendEmail fromName, fromAddress, managerNumber
+          reply.sendEmail fromName, fromAddress, propertyID, managerNumber
   res.end()
 
 module.exports = router

@@ -11,7 +11,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
   replyTo = from;
   propertyURL = 'http://onerent.co/api/property/' + propertyID;
   return request(propertyURL, function(err, res, body) {
-    var address, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, property, rent, showtimes, utilities;
+    var address, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, parkingOptions, property, rent, showtimes, utilities;
     if (err) {
       return console.log(err);
     } else {
@@ -22,6 +22,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
       leaseLength = property.leaseTermMonths;
       rent = '$' + property.monthlyRent;
       deposit = '$' + property.deposit;
+      parkingOptions = property.features.parking;
       if (property.requiredIncomeMultiplier) {
         incomeRequirement = '$' + property.monthlyRent * property.requiredIncomeMultiplier;
       } else {
