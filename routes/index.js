@@ -83,7 +83,7 @@ router.post('/', function(req, res) {
           }
           console.log(propertyID);
           console.log(managerNumber);
-          results.push(reply.sendEmail(fromName, fromAddress, propertyID));
+          results.push(reply.sendEmail(fromName, fromAddress, managerNumber));
         } else {
           results.push(void 0);
         }
