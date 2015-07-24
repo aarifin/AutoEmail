@@ -60,7 +60,6 @@ router.post('/', function(req, res) {
     });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
     if (/trulia/.test(fromDomain)) {
-      console.log(text);
       fromAddress = text.match("Email: (.*);")[1];
       fromName = text.match("From: (.*) ")[1];
     }
@@ -82,7 +81,6 @@ router.post('/', function(req, res) {
             managerNumber = '(669) 251-9324';
           }
           console.log('Reply sent to: ' + fromAddress);
-          console.log(fromName);
           console.log('Property ID: ' + propertyID);
           results.push(reply.sendEmail(fromName, fromAddress, propertyID, managerNumber));
         } else {
