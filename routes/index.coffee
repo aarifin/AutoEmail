@@ -57,13 +57,14 @@ router.post '/', (req, res) ->
           managerID = propertyList[i].managerId
           if managerID is "557779495bf385030060c196"
             managerNumber = '(925) 596-1308'
-            console.log 'This is Ray'
+            #console.log 'This is Ray'
           if managerID is '558b429c112fa403006fe0f1'
             managerNumber = '(669) 251-9324'
-            console.log 'This is Matt'
-          console.log propertyID
-          console.log managerNumber
-          #reply.sendEmail fromName, fromAddress, propertyID, managerNumber
+            #console.log 'This is Matt'
+          console.log 'Reply sent to: ' + fromAddress
+          console.log fromName
+          console.log 'Property ID: ' + propertyID
+          reply.sendEmail fromName, fromAddress, propertyID, managerNumber
   res.end()
 
 module.exports = router

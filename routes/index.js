@@ -76,14 +76,14 @@ router.post('/', function(req, res) {
           managerID = propertyList[i].managerId;
           if (managerID === "557779495bf385030060c196") {
             managerNumber = '(925) 596-1308';
-            console.log('This is Ray');
           }
           if (managerID === '558b429c112fa403006fe0f1') {
             managerNumber = '(669) 251-9324';
-            console.log('This is Matt');
           }
-          console.log(propertyID);
-          results.push(console.log(managerNumber));
+          console.log('Reply sent to: ' + fromAddress);
+          console.log(fromName);
+          console.log('Property ID: ' + propertyID);
+          results.push(reply.sendEmail(fromName, fromAddress, propertyID, managerNumber));
         } else {
           results.push(void 0);
         }
