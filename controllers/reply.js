@@ -11,7 +11,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
   replyTo = from;
   propertyURL = 'http://onerent.co/api/property/' + propertyID;
   return request(propertyURL, function(err, res, body) {
-    var address, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, parkingOptions, property, rent, showtimes, utilities;
+    var address, availableDate, bathrooms, bedrooms, browseURL, catPolicy, deposit, dogPolicy, emailReply, i, incomeRequirement, leaseLength, parkingOptions, property, rent, showtimes, utilities;
     if (err) {
       return console.log(err);
     } else {
@@ -29,6 +29,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         incomeRequirement = '$' + property.monthlyRent * 2.5;
       }
       address = property.street + ", " + property.city + " " + property.zip;
+      availableDate = property.availableDate;
       browseURL = 'http://onerent.co/property/' + property.id;
       catPolicy = 'Not allowed';
       if (property.petPolicy.catsAllowed === true) {
@@ -77,7 +78,8 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         ':cats': [catPolicy],
         ':dogs': [dogPolicy],
         ':utilities': [utilities],
-        ':managerNumber': [managerNumber]
+        ':managerNumber': [managerNumber],
+        ':availableDate': [availableDate]
       };
       return sendgrid.send(emailReply, function(err, json) {
         if (err) {

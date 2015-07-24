@@ -34,6 +34,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       else
         incomeRequirement = '$' + property.monthlyRent*2.5
       address = property.street + ", " + property.city + " " + property.zip
+      availableDate = property.availableDate
       browseURL = 'http://onerent.co/property/' + property.id
       catPolicy = 'Not allowed'
       if property.petPolicy.catsAllowed is true
@@ -78,6 +79,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
         ':dogs': [dogPolicy]
         ':utilities': [utilities]
         ':managerNumber': [managerNumber]
+        ':availableDate': [availableDate]
 
       sendgrid.send emailReply, (err, json) ->
         if err

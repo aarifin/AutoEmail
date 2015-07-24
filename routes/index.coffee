@@ -43,7 +43,8 @@ router.post '/', (req, res) ->
 
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
     if  /trulia/.test fromDomain
-      fromName = ''
+      fromAddress = text.match("Email: (.*)*")[1]
+      fromName = text.match("From: (.*) ")[1]
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
       replyTest = /Section 8/.test text
@@ -62,7 +63,7 @@ router.post '/', (req, res) ->
             console.log 'This is Matt'
           console.log propertyID
           console.log managerNumber
-          reply.sendEmail fromName, fromAddress, propertyID, managerNumber
+          #reply.sendEmail fromName, fromAddress, propertyID, managerNumber
   res.end()
 
 module.exports = router

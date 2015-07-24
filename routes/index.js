@@ -60,7 +60,8 @@ router.post('/', function(req, res) {
     });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
     if (/trulia/.test(fromDomain)) {
-      fromName = '';
+      fromAddress = text.match("Email: (.*)*")[1];
+      fromName = text.match("From: (.*) ")[1];
     }
     request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
       var apiAddress, i, managerID, managerNumber, propertyID, propertyList, regex, replyTest, results;
@@ -82,8 +83,7 @@ router.post('/', function(req, res) {
             console.log('This is Matt');
           }
           console.log(propertyID);
-          console.log(managerNumber);
-          results.push(reply.sendEmail(fromName, fromAddress, propertyID, managerNumber));
+          results.push(console.log(managerNumber));
         } else {
           results.push(void 0);
         }
