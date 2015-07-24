@@ -44,7 +44,7 @@ router.post '/', (req, res) ->
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
     if  /trulia/.test fromDomain
       console.log text
-      fromAddress = text.match("Email: (.*)*")[1]
+      fromAddress = text.match("Email: (.*);")[1]
       fromName = text.match("From: (.*) ")[1]
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
