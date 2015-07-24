@@ -60,6 +60,7 @@ router.post('/', function(req, res) {
     });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
     if (/trulia/.test(fromDomain)) {
+      console.log(text);
       fromAddress = text.match("Email: (.*)*")[1];
       fromName = text.match("From: (.*) ")[1];
     }
