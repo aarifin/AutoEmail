@@ -1,10 +1,18 @@
-var moment, request, sendgrid;
+var Emails, moment, mong, mongoose, request, sendgrid;
 
 sendgrid = require('sendgrid')('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');
 
 request = require('request');
 
 moment = require('moment-timezone');
+
+mong = require('../routes/emailSchema');
+
+mongoose = require('mongoose');
+
+Emails = mong.autoreply;
+
+mongoose.connect('mongodb://vyomesh:awesome123@proximus.modulusmongo.net:27017/iz6atywA');
 
 exports.sendEmail = function(name, from, propertyID, managerNumber) {
   var propertyURL, replyTo;
@@ -82,10 +90,22 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         ':availableDate': [availableDate]
       };
       return sendgrid.send(emailReply, function(err, json) {
+        var replyLog;
         if (err) {
           console.log(err);
         }
-        return console.log(json);
+        console.log(json);
+        replyLog = new Emails();
+        replyLog.sentTo = name + ': ' + from;
+        replyLog.timeSent = new Date;
+        replyLog.messageStatus = json.message;
+        return replyLog.save(function(err) {
+          if (err) {
+            return console.log(err);
+          } else {
+            return console.log('Email logged');
+          }
+        });
       });
     }
   });

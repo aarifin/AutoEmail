@@ -27,7 +27,7 @@ router.post('/', function(req, res) {
   fromAddress = from.match("<(.*)>")[1];
   fromDomain = from.split('@')[1];
   fromName = from.split(' ')[0];
-  if (/craigslist/.test(fromDomain)) {
+  if ((/craigslist/.test(fromDomain)) && !(/robot/.test(from))) {
     console.log('This is from Craigslist');
     craigslistID = to.match("-(.*)@")[1];
     console.log(craigslistID);

@@ -1,6 +1,10 @@
 sendgrid = require('sendgrid')('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')
 request = require 'request'
 moment = require 'moment-timezone'
+mong=require('../routes/emailSchema');
+mongoose = require 'mongoose'
+Emails = mong.autoreply
+mongoose.connect('mongodb://vyomesh:awesome123@proximus.modulusmongo.net:27017/iz6atywA')
 
 exports.sendEmail = (name, from, propertyID, managerNumber) ->
   replyTo = from
@@ -13,18 +17,6 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       bedrooms = property.bedrooms
       bathrooms = property.bathrooms
       showtimes = 'Please schedule a showtime here: http://onerent.co/property/' + propertyID
-      # arrayOfShowtimes = []
-      # for i of showtimes
-      #   ISOString = showtimes[i].date
-      #   momentTime = moment(ISOString)
-      #   now = moment.tz(momentTime, "America/Los_Angeles")
-      #   showingTime = now.format('ddd MMM Do, h:mm a')
-      #   if (moment(now)).isAfter moment()
-      #     arrayOfShowtimes.push showingTime
-      # if arrayOfShowtimes.length is 0
-      #   arrayOfShowtimes = 'No showtimes are currently scheduled.'
-      # else
-      #   arrayOfShowtimes = arrayOfShowtimes.join(', ')
       leaseLength = property.leaseTermMonths
       rent = '$' + property.monthlyRent
       deposit = '$' + property.deposit
@@ -85,3 +77,13 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
         if err
           console.log err
         console.log json
+        replyLog = new Emails()
+        replyLog.sentTo = name + ': ' + from
+        replyLog.timeSent = new Date 
+        replyLog.messageStatus = json.message
+        replyLog.save (err) ->
+          if err
+            console.log err
+          else
+            console.log 'Email logged'
+
