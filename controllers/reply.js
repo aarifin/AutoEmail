@@ -40,12 +40,14 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
       availableDate = property.availableDate;
       browseURL = 'http://onerent.co/property/' + property.id;
       catPolicy = 'Not allowed';
-      if (property.petPolicy.catsAllowed === true) {
-        catPolicy = 'Allowed';
-      }
       dogPolicy = 'Not allowed';
-      if (property.petPolicy.dogsAllowed === true) {
-        dogPolicy = 'Allowed';
+      if (property.petPolicy) {
+        if (property.petPolicy.catsAllowed === true) {
+          catPolicy = 'Allowed';
+        }
+        if (property.petPolicy.dogsAllowed === true) {
+          dogPolicy = 'Allowed';
+        }
       }
       utilities = [];
       for (i in property.features.utiliesPaidByOwner) {

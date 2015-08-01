@@ -29,11 +29,12 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       availableDate = property.availableDate
       browseURL = 'http://onerent.co/property/' + property.id
       catPolicy = 'Not allowed'
-      if property.petPolicy.catsAllowed is true
-        catPolicy = 'Allowed'
       dogPolicy = 'Not allowed'
-      if property.petPolicy.dogsAllowed is true
-        dogPolicy = 'Allowed'
+      if property.petPolicy
+        if property.petPolicy.catsAllowed is true
+          catPolicy = 'Allowed'
+        if property.petPolicy.dogsAllowed is true
+          dogPolicy = 'Allowed'
       utilities = []
       for i of property.features.utiliesPaidByOwner
         utilities.push property.features.utiliesPaidByOwner[i]
