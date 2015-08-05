@@ -30,7 +30,11 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
       leaseLength = property.leaseTermMonths;
       rent = '$' + property.monthlyRent;
       deposit = '$' + property.deposit;
-      parkingOptions = property.features.parking;
+      parkingOptions = "";
+      if (property.features.parking) {
+        parkingOptions = property.features.parking;
+        parkingOptions = parkingOptions.join(', ');
+      }
       if (property.requiredIncomeMultiplier) {
         incomeRequirement = '$' + property.monthlyRent * property.requiredIncomeMultiplier;
       } else {
@@ -80,7 +84,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         ':address': [address],
         ':showingtimes': [showtimes],
         ':leaseLength': [leaseLength],
-        ':parkingOptions': [parkingOptions.join(', ')],
+        ':parkingOptions': [parkingOptions],
         ':rent': [rent],
         ':deposit': [deposit],
         ':income': [incomeRequirement],
