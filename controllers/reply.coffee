@@ -51,6 +51,7 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
         fromname: 'OneRent'
         subject: 'Thank you for your interest in OneRent!'
         text: ' '
+        html: ''
 
       emailReply.setFilters
         'templates':
