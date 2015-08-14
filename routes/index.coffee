@@ -23,6 +23,7 @@ router.post '/', (req, res) ->
     console.log 'This is from Craigslist'
     craigslistID = to.match("-(.*)@")[1]
     console.log craigslistID
+    #Compare Craigslist IDs
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
       replyTest = /Section 8/.test text

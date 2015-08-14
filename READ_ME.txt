@@ -1,0 +1,1 @@
+This script sends out emails whenever an interest email is received from Craigslist, Zillow, or Trulio. When an email is received, a POST is made to the server 'http://onerentautoreply.herokuapp.com/'. SendGrid will then send the email.
