@@ -22,7 +22,8 @@ router.post '/', (req, res) ->
   if (/craigslist/.test fromDomain) and !(/robot/.test from)
     console.log 'This is from Craigslist'
     craigslistID = to.match("-(.*)@")[1]
-    console.log craigslistID
+    console.log "Craigslist ID: " + craigslistID
+    #Compare Craigslist IDs
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
       replyTest = /Section 8/.test text
@@ -37,6 +38,18 @@ router.post '/', (req, res) ->
           if managerID is '558b429c112fa403006fe0f1'
             managerNumber = '(669) 251-9324'
             console.log 'This is Matt'
+          if managerID is '55d29096f467c60300e841cb'
+            managerNumber = '(415) 595-9585'
+            console.log 'This is Clay'
+          if managerID is '55dba1d760d8a303000873e3'
+            managerNumber = '(408) 420-0758'
+            console.log 'This is Justin'
+          if managerID is '55d231e969a6050300429048'
+            managerNumber = '(805) 722-9637'
+            console.log 'This is Dylan'
+          if managerID is '55a06b2f1c5c49030076d481'
+            managerNumber = '(512) 749-8696'
+            console.log 'This is Tucker'
           console.log propertyID
           console.log managerNumber
           reply.sendEmail fromName, fromAddress, propertyID, managerNumber
