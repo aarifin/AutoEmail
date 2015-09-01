@@ -22,7 +22,11 @@ router.post '/', (req, res) ->
   if (/craigslist/.test fromDomain) and !(/robot/.test from)
     console.log 'This is from Craigslist'
     craigslistID = to.match("-(.*)@")[1]
+<<<<<<< HEAD
     console.log "Craigslist ID: " + craigslistID
+=======
+    console.log craigslistID
+>>>>>>> e745c34be460d9d0ff22f91a79f74833ebb97df5
     #Compare Craigslist IDs
     request 'http://www.onerent.co/api/property/availableproperties', (err, res, body) ->
       propertyList = JSON.parse body
