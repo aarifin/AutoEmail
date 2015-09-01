@@ -74,10 +74,22 @@ router.post '/', (req, res) ->
           managerID = propertyList[i].managerId
           if managerID is "557779495bf385030060c196"
             managerNumber = '(925) 596-1308'
-            #console.log 'This is Ray'
+            console.log 'This is Ray'
           if managerID is '558b429c112fa403006fe0f1'
             managerNumber = '(669) 251-9324'
-            #console.log 'This is Matt'
+            console.log 'This is Matt'
+          if managerID is '55d29096f467c60300e841cb'
+            managerNumber = '(415) 595-9585'
+            console.log 'This is Clay'
+          if managerID is '55dba1d760d8a303000873e3'
+            managerNumber = '(408) 420-0758'
+            console.log 'This is Justin'
+          if managerID is '55d231e969a6050300429048'
+            managerNumber = '(805) 722-9637'
+            console.log 'This is Dylan'
+          if managerID is '55a06b2f1c5c49030076d481'
+            managerNumber = '(512) 749-8696'
+            console.log 'This is Tucker'
           console.log 'Reply sent to: ' + fromAddress
           console.log 'Property ID: ' + propertyID
           reply.sendEmail fromName, fromAddress, propertyID, managerNumber
