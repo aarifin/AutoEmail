@@ -67,7 +67,7 @@ router.post '/', (req, res) ->
               managerNumber = '(512) 749-8696'
               console.log 'This is Tucker'
             console.log propertyID
-          #   reply.sendEmail fromName, fromAddress, propertyID, managerNumber
+            reply.sendEmail fromName, fromAddress, propertyID, managerNumber
 
   else if (/zillow/.test fromDomain) or (/trulia/.test fromDomain)
     if  /trulia/.test fromDomain

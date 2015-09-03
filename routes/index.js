@@ -87,7 +87,8 @@ router.post('/', function(req, res) {
               managerNumber = '(512) 749-8696';
               console.log('This is Tucker');
             }
-            results.push(console.log(propertyID));
+            console.log(propertyID);
+            results.push(reply.sendEmail(fromName, fromAddress, propertyID, managerNumber));
           } else {
             results.push(void 0);
           }
