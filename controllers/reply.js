@@ -67,7 +67,8 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         from: 'pm@onerent.co',
         fromname: 'OneRent',
         subject: 'Thank you for your interest in OneRent!',
-        text: ' '
+        text: ' ',
+        html: ' '
       });
       emailReply.setFilters({
         'templates': {
