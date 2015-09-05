@@ -45,8 +45,8 @@ router.post('/', function(req, res) {
   fromAddress = from.match("<(.*)>")[1];
   fromDomain = from.split('@')[1];
   fromName = from.split(' ')[0];
-  URL = text.match("http(.*)html")[0];
   if ((/craigslist/.test(fromDomain)) && !(/robot/.test(from))) {
+    URL = text.match("http(.*)html")[0];
     console.log('This is from Craigslist');
     getPostingBody(URL).then(function(postingBody) {
       return request('http://www.onerent.co/api/property/availableproperties', function(err, res, body) {
@@ -97,6 +97,7 @@ router.post('/', function(req, res) {
       });
     });
   } else if ((/zillow/.test(fromDomain)) || (/trulia/.test(fromDomain))) {
+    console.log('inside else if');
     if (/trulia/.test(fromDomain)) {
       fromAddress = text.match("Email: (.*);")[1];
       fromName = text.match("From: (.*) ")[1];

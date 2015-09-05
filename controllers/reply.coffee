@@ -7,6 +7,7 @@ Emails = mong.autoreply
 mongoose.connect('mongodb://vyomesh:awesome123@proximus.modulusmongo.net:27017/iz6atywA')
 
 exports.sendEmail = (name, from, propertyID, managerNumber) ->
+  console.log 'inside sendEmail'
   replyTo = from
   propertyURL = 'http://onerent.co/api/property/' + propertyID
   request propertyURL, (err, res, body) ->

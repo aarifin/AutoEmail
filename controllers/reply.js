@@ -16,6 +16,7 @@ mongoose.connect('mongodb://vyomesh:awesome123@proximus.modulusmongo.net:27017/i
 
 exports.sendEmail = function(name, from, propertyID, managerNumber) {
   var propertyURL, replyTo;
+  console.log('inside sendEmail');
   replyTo = from;
   propertyURL = 'http://onerent.co/api/property/' + propertyID;
   return request(propertyURL, function(err, res, body) {
