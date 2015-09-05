@@ -22,9 +22,10 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
       rent = '$' + property.monthlyRent
       deposit = '$' + property.deposit
       parkingOptions = ""
-      if property.features.parking
-        parkingOptions = property.features.parking #array
-        parkingOptions = parkingOptions.join(', ')
+      if property.features  
+        if property.features.parking
+          parkingOptions = property.features.parking #array
+          parkingOptions = parkingOptions.join(', ')
       if property.requiredIncomeMultiplier
         incomeRequirement = '$' + property.monthlyRent*property.requiredIncomeMultiplier
       else
@@ -40,12 +41,13 @@ exports.sendEmail = (name, from, propertyID, managerNumber) ->
         if property.petPolicy.dogsAllowed is true
           dogPolicy = 'Allowed'
       utilities = []
-      for i of property.features.utiliesPaidByOwner
-        utilities.push property.features.utiliesPaidByOwner[i]
-      if utilities.length is 0
-        utilities = 'None'
-      else
-        utilities = utilities.join(', ')  
+      if property.features  
+        for i of property.features.utiliesPaidByOwner
+          utilities.push property.features.utiliesPaidByOwner[i]
+        if utilities.length is 0
+          utilities = 'None'
+        else
+          utilities = utilities.join(', ')  
       emailReply = new sendgrid.Email
         to: replyTo
         from: 'pm@onerent.co'

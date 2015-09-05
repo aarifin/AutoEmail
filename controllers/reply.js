@@ -32,9 +32,11 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
       rent = '$' + property.monthlyRent;
       deposit = '$' + property.deposit;
       parkingOptions = "";
-      if (property.features.parking) {
-        parkingOptions = property.features.parking;
-        parkingOptions = parkingOptions.join(', ');
+      if (property.features) {
+        if (property.features.parking) {
+          parkingOptions = property.features.parking;
+          parkingOptions = parkingOptions.join(', ');
+        }
       }
       if (property.requiredIncomeMultiplier) {
         incomeRequirement = '$' + property.monthlyRent * property.requiredIncomeMultiplier;
@@ -55,13 +57,15 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         }
       }
       utilities = [];
-      for (i in property.features.utiliesPaidByOwner) {
-        utilities.push(property.features.utiliesPaidByOwner[i]);
-      }
-      if (utilities.length === 0) {
-        utilities = 'None';
-      } else {
-        utilities = utilities.join(', ');
+      if (property.features) {
+        for (i in property.features.utiliesPaidByOwner) {
+          utilities.push(property.features.utiliesPaidByOwner[i]);
+        }
+        if (utilities.length === 0) {
+          utilities = 'None';
+        } else {
+          utilities = utilities.join(', ');
+        }
       }
       emailReply = new sendgrid.Email({
         to: replyTo,
