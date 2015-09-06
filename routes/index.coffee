@@ -41,7 +41,6 @@ router.post '/', (req, res) ->
         replyTest = /Section 8/.test text
         for i of propertyList
           street = propertyList[i].street
-          street = street.split(' ')[1]
           apiStreet = RegExp(street)
           streetTest = apiStreet.test postingBody
           if (streetTest) and (replyTest is false)

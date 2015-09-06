@@ -56,7 +56,6 @@ router.post('/', function(req, res) {
         results = [];
         for (i in propertyList) {
           street = propertyList[i].street;
-          street = street.split(' ')[1];
           apiStreet = RegExp(street);
           streetTest = apiStreet.test(postingBody);
           if (streetTest && (replyTest === false)) {
