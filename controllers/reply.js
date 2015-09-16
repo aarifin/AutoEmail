@@ -71,6 +71,7 @@ exports.sendEmail = function(name, from, propertyID, managerNumber) {
         to: replyTo,
         from: 'pm@onerent.co',
         fromname: 'OneRent',
+        bcc: ['pm@onerent.co'],
         subject: 'Thank you for your interest in OneRent!',
         text: ' ',
         html: ' '
