@@ -42,6 +42,7 @@ router.post('/', function(req, res) {
   from = email.from;
   text = email.text;
   console.log('From: ' + from);
+  console.log(text);
   fromAddress = from.match("<(.*)>")[1];
   fromDomain = from.split('@')[1];
   fromName = from.split(' ')[0];
